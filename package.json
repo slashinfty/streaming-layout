@@ -1,0 +1,35 @@
+{
+  "name": "streaming-layout",
+  "version": "1.0.0",
+  "description": "Electron-based streaming layout",
+  "main": "./main/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slashinfty/streaming-layout.git"
+  },
+  "keywords": [
+    "streaming",
+    "layout",
+    "electron"
+  ],
+  "author": "Matt Braddock",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/slashinfty/streaming-layout/issues"
+  },
+  "homepage": "https://github.com/slashinfty/streaming-layout#readme",
+  "devDependencies": {
+    "electron": "^16.0.1",
+    "electron-builder": "^22.14.5",
+    "electron-is-dev": "^2.0.0"
+  },
+  "dependencies": {
+    "broadcast-channel": "^4.5.0",
+    "dynamic-marquee": "^2.1.2",
+    "mousetrap": "^1.6.5",
+    "obs-websocket-js": "^4.0.3"
+  }
+}
