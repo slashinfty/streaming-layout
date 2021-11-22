@@ -4,6 +4,8 @@
   "description": "Electron-based streaming layout",
   "main": "./main/index.js",
   "scripts": {
+    "start": "electron .",
+    "build": "electron-builder -l",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +23,29 @@
     "url": "https://github.com/slashinfty/streaming-layout/issues"
   },
   "homepage": "https://github.com/slashinfty/streaming-layout#readme",
+  "build": {
+    "appId": "com.electron.streaming-layout",
+    "productName": "Streaming Layout",
+    "npmRebuild": false,
+    "files": [
+      "node_modules/**/*",
+      "public/*",
+      "main/*",
+      "static/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "linux": {
+      "category": "game",
+      "icon": "assets/icon_512x512.png",
+      "target": [
+        "AppImage"
+      ]
+    }
+  },
   "devDependencies": {
     "electron": "^16.0.1",
     "electron-builder": "^22.14.5",
