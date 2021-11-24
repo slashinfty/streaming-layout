@@ -1,7 +1,6 @@
 const { app, BrowserWindow, shell } = require('electron');
 const contextMenu = require('electron-context-menu');
-const isDev = require('electron-is-dev');
-const path = require('path');
+const prompt = require('electron-prompt');
 
 let win;
 
@@ -12,11 +11,11 @@ contextMenu({
             submenu: [
                 {
                     label: 'Starting Soon',
-                    click: () => win.webContents.send('switch', 'Starting Soon')
+                    click: () => win.webContents.send('scene', 'Starting Soon')
                 },
                 {
                     label: 'Coding',
-                    click: () => win.webContents.send('switch', 'Coding')
+                    click: () => win.webContents.send('scene', 'Coding')
                 },
                 {
                     label: 'Electronics'
@@ -31,6 +30,19 @@ contextMenu({
                     label: '4:3 Gaming'
                 }
             ]
+        },
+        {
+            label: 'Change Title',
+            click: () => {
+                prompt({
+                    title: 'Change Stream Title',
+                    label: 'Enter new title:',
+                    inputAttrs: {
+                        type: 'text'
+                    },
+                    skipTaskbar: false
+                }, win).then(r => win.webContents.send('title', r)).catch(console.error);
+            }
         },
         {
             label: 'Toggle Timer'
@@ -56,9 +68,9 @@ const createWindow = () => {
     });
 
     win.setMenu(null);
-    win.loadFile(path.resolve(__dirname, '../public/index.html'));
+    win.loadFile(require('path').resolve(__dirname, '../public/index.html'));
 
-    if (isDev) win.webContents.openDevTools({ mode: 'detach' });
+    if (require('electron-is-dev')) win.webContents.openDevTools({ mode: 'detach' });
 }
 
 app.allowRendererProcessReuse = false;
