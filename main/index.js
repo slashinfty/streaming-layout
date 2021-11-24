@@ -1,19 +1,49 @@
 const { app, BrowserWindow, shell } = require('electron');
 const contextMenu = require('electron-context-menu');
 const isDev = require('electron-is-dev');
-const { BroadcastChannel } = require('broadcast-channel');
 const path = require('path');
 
-const channel = new BroadcastChannel('channel');
+let win;
 
 contextMenu({
     prepend: (defaultActions, parameters, browserWindow) => [
-        
+        {
+            label: 'Select Scene',
+            submenu: [
+                {
+                    label: 'Starting Soon',
+                    click: () => win.webContents.send('switch', 'Starting Soon')
+                },
+                {
+                    label: 'Coding',
+                    click: () => win.webContents.send('switch', 'Coding')
+                },
+                {
+                    label: 'Electronics'
+                },
+                {
+                    label: '10:9 Gaming'
+                },
+                {
+                    label: '8:7 Gaming'
+                },
+                {
+                    label: '4:3 Gaming'
+                }
+            ]
+        },
+        {
+            label: 'Toggle Timer'
+        },
+        {
+            label: 'Quit',
+            click: app.quit
+        }
     ]
 });
 
 const createWindow = () => {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
