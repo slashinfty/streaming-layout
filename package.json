@@ -54,7 +54,6 @@
     "electron-prompt": "^1.7.0"
   },
   "dependencies": {
-    "broadcast-channel": "^4.5.0",
     "dotenv": "^10.0.0",
     "dynamic-marquee": "^2.1.2",
     "mousetrap": "^1.6.5",
