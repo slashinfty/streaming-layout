@@ -3,6 +3,20 @@
     src: url('../static/ColoredCrayons.ttf') format('truetype');
 }
 
+body {
+    font-family: 'ColoredCrayons';
+    color: rgba(255, 255, 255, 0.85);
+    background-image: url('../static/background.png');
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+}
+
+#marquee {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    background-color: black;
+}
+
 .sup {
     position: relative;
     bottom: 1ex; 

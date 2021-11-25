@@ -1,15 +1,42 @@
+const Mousetrap = require('mousetrap');
+var stopwatch;
+
 document.addEventListener("DOMContentLoaded", () => {
     Mousetrap.bind('f1', () => {
         if (stopwatch !== undefined) stopwatch.start();
     });
 
     Mousetrap.bind('f4', () => {
-        if (stopwatch !== undefined) stopwatch.stop(); 
+        if (stopwatch !== undefined) stopwatch.stop();
     });
 
     Mousetrap.bind('f8', () => {
         if (stopwatch !== undefined) stopwatch.reset();
     });
+});
+
+ipcRenderer.on('timer-set', (event, secondsString) => {
+    if (!stopwatch.running) stopwatch.ms = Number(secondsString) * 1000;
+});
+
+ipcRenderer.on('timer', (event, message) => {
+    switch (message) {
+        case 'toggle':
+            if (stopwatch.running) stopwatch.reset();
+            if (stopwatch !== undefined) stopwatch.display.style.display = 'none';
+            break;
+        case 'start':
+            if (stopwatch !== undefined) stopwatch.start();
+            break;
+        case 'stop':
+            if (stopwatch !== undefined) stopwatch.stop();
+            break;
+        case 'reset':
+            if (stopwatch !== undefined) stopwatch.reset();
+            break;
+        default:
+            break;
+    }
 });
 
 class Stopwatch {

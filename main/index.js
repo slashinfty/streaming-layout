@@ -14,20 +14,32 @@ contextMenu({
                     click: () => win.webContents.send('scene', 'Starting Soon')
                 },
                 {
+                    label: 'Be Right Back',
+                    click: () => win.webContents.send('scene', 'Be Right Back')
+                },
+                {
                     label: 'Coding',
                     click: () => win.webContents.send('scene', 'Coding')
                 },
                 {
-                    label: 'Electronics'
+                    label: 'Electronics',
+                    click: () => win.webContents.send('scene', 'Electronic')
                 },
                 {
-                    label: '10:9 Gaming'
+                    label: '16:9 Gaming',
+                    click: () => win.webContents.send('scene', '16:9 Gaming')
                 },
                 {
-                    label: '8:7 Gaming'
+                    label: '10:9 Gaming',
+                    click: () => win.webContents.send('scene', '10:9 Gaming')
                 },
                 {
-                    label: '4:3 Gaming'
+                    label: '8:7 Gaming',
+                    click: () => win.webContents.send('scene', '8:7 Gaming')
+                },
+                {
+                    label: '4:3 Gaming',
+                    click: () => win.webContents.send('scene', '4:3 Gaming')
                 }
             ]
         },
@@ -45,7 +57,38 @@ contextMenu({
             }
         },
         {
-            label: 'Toggle Timer'
+            label: 'Timer',
+            submenu: [
+                {
+                    label: 'Toggle Timer',
+                    click: () => win.webContents.send('timer', 'toggle')
+                },
+                {
+                    label: 'Set Timer',
+                    click: () => {
+                        prompt({
+                            title: 'Set Timer',
+                            label: 'Enter time in seconds',
+                            inputAttrs: {
+                                type: 'text'
+                            },
+                            skipTaskbar: false
+                        }, win).then(r => win.webContents.send('timer-set', r)).catch(console.error);
+                    }
+                },
+                {
+                    label: 'Start Timer',
+                    click: () => win.webContents.send('timer', 'start')
+                },
+                {
+                    label: 'Stop Timer',
+                    click: () => win.webContents.send('timer', 'stop')
+                },
+                {
+                    label: 'Reset Timer',
+                    click: () => win.webContents.send('timer', 'reset')
+                }
+            ]
         },
         {
             label: 'Quit',
