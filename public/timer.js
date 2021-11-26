@@ -1,5 +1,5 @@
 const Mousetrap = require('mousetrap');
-var stopwatch;
+var stopwatch, countdown;
 
 document.addEventListener("DOMContentLoaded", () => {
     Mousetrap.bind('f1', () => {
@@ -16,14 +16,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 ipcRenderer.on('timer-set', (event, secondsString) => {
-    if (!stopwatch.running) stopwatch.ms = Number(secondsString) * 1000;
+    if (!stopwatch.running) {
+        stopwatch.ms = Number(secondsString) * 1000;
+        stopwatch.print();
+    }
 });
 
 ipcRenderer.on('timer', (event, message) => {
     switch (message) {
         case 'toggle':
-            if (stopwatch.running) stopwatch.reset();
-            if (stopwatch !== undefined) stopwatch.display.style.display = 'none';
+            if (stopwatch === undefined) {
+                stopwatch = new Stopwatch(document.getElementById('timer'));
+            } else {
+                if (stopwatch.running) stopwatch.reset();
+                stopwatch.display.style.display = 'none';
+                stopwatch = undefined;
+            }
             break;
         case 'start':
             if (stopwatch !== undefined) stopwatch.start();
@@ -43,6 +51,7 @@ class Stopwatch {
     constructor(display) {
         this.running = false;
         this.display = display;
+        this.display.style.display = 'block';
         this.reset();
     }
 
@@ -104,5 +113,25 @@ class Stopwatch {
             }
         });
         this.display.innerHTML = code;
+    }
+}
+
+class Countdown extends Stopwatch {
+    constructor(display, start) {
+        super(display);
+        this.ms = Number(start) * 1000;
+        this.print();
+    }
+
+    step(timestamp) {
+        if (!this.running) return;
+        this.ms -= timestamp - this.time;
+        if (this.ms < 0) {
+            this.stop();
+            return;
+        }
+        this.time = timestamp;
+        this.print();
+        requestAnimationFrame(this.step.bind(this));
     }
 }
