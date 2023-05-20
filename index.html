@@ -2,55 +2,77 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/98.css"
+    >
     <link rel="stylesheet" href="/src/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
-    <script type="module" src="/src/main.ts" defer></script>
-    <style>
-      .logo.vite:hover {
-        filter: drop-shadow(0 0 2em #747bff);
-      }
-
-      .logo.typescript:hover {
-        filter: drop-shadow(0 0 2em #2d79c7);
-      }
-    </style>
+    <title>Streaming Layout</title>
+    <script type="module" src="/src/main.ts"></script>
   </head>
 
   <body>
-    <div class="container">
-      <h1>Welcome to Tauri!</h1>
-
-      <div class="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/src/assets/vite.svg" class="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img
-            src="/src/assets/tauri.svg"
-            class="logo tauri"
-            alt="Tauri logo"
-          />
-        </a>
-        <a href="https://www.typescriptlang.org/docs" target="_blank">
-          <img
-            src="/src/assets/typescript.svg"
-            class="logo typescript"
-            alt="typescript logo"
-          />
-        </a>
-      </div>
-
-      <p>Click on the Tauri logo to learn more about the framework</p>
-
-      <div class="row">
-        <div>
-          <input id="greet-input" placeholder="Enter a name..." />
-          <button id="greet-button" type="button">Greet</button>
+    <div class="left window" id="timer-window">
+      <div class="title-bar inactive">
+        <div class="title-bar-text">Speedrunning Timer</div>
+        <div class="title-bar-controls">
+          <button id="timer-close" aria-label="Close"></button>
         </div>
       </div>
-
-      <p id="greet-msg"></p>
+      <div class="window-body" id="timer-body">
+        <p id="timer">0:00.0</p>
+      </div>
+      <div class="status-bar">
+        <p class="status-bar-field">Personal Best: <span id="pb">0:00.0</span></p>
+      </div>
+    </div>
+    <div class="left window" id="chat-window">
+      <div class="title-bar inactive">
+        <div class="title-bar-text">Twitch Chat</div>
+        <div class="title-bar-controls">
+          <button id="chat-close" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <textarea id="chat" readonly></textarea>
+      </div>
+    </div>
+    <div class="window" id="feed-window">
+      <div class="title-bar">
+        <div class="title-bar-text">Game Feed</div>
+      </div>
+      <div class="window-body">
+        <textarea id="feed" readonly></textarea>
+      </div>
+    </div>
+    <div class="window" id="settings-window">
+      <div class="title-bar">
+        <div class="title-bar-text">Settings</div>
+      </div>
+      <div class="window-body">
+        <p>WS: <input type="text" id="obs-ws-input"/></p>
+        <p><button id="obs-ws-connect">WS Connect</button></p>
+        <p><label for="aspect-ratio">Aspect Ratio: </label>
+        <select name="aspect-ratio" id="aspect-ratio">
+          <option value="10-9" selected>10:9</option>
+          <option value="8-7">8:7</option>
+          <option value="4-3">4:3</option>
+          <option value="3-2">3:2</option>
+          <option value="16-9">16:9</option>
+        </select></p>
+        <p><button id="timer-toggle">Toggle Timer</button></p>
+        <p><button id="chat-toggle">Toggle Chat</button></p>
+        <p><button id="clear-chat">Clear Chat</button></p>
+        <p>PB: <input type="text" id="pb-input" value="0:00.0"/></p>
+        <p><button id="set-pb">Set PB</button></p>
+        <p><button id="timer-start">Timer Start (F1)</button></p>
+        <p><button id="timer-pause">Timer Pause (F5)</button></p>
+        <p><button id="timer-reset">Timer Reset (F9)</button></p>
+        <p>Twitch Client ID: <input type="text" id="twitch-client-id"/></p>
+        <p>Twitch Access Token: <input type="text" id="twitch-access-token"/></p>
+        <p><button id="twitch-connect">Twitch Connect</button></p>
+      </div>
     </div>
   </body>
 </html>

@@ -2,9 +2,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "moduleResolution": "Node",
-    "strict": true,
+    "strict": false,
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
