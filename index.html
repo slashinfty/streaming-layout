@@ -51,8 +51,8 @@
         <div class="title-bar-text">Settings</div>
       </div>
       <div class="window-body">
-        <p>WS: <input type="text" id="obs-ws-input"/></p>
-        <p><button id="obs-ws-connect">WS Connect</button></p>
+        <p>ws:// <input type="text" id="obs-ws-input"/></p>
+        <p><button id="obs-ws-connect">OBS WS Connect</button></p>
         <p><label for="aspect-ratio">Aspect Ratio: </label>
         <select name="aspect-ratio" id="aspect-ratio">
           <option value="10-9" selected>10:9</option>
@@ -66,9 +66,13 @@
         <p><button id="clear-chat">Clear Chat</button></p>
         <p>PB: <input type="text" id="pb-input" value="0:00.0"/></p>
         <p><button id="set-pb">Set PB</button></p>
-        <p><button id="timer-start">Timer Start (F1)</button></p>
-        <p><button id="timer-pause">Timer Pause (F5)</button></p>
-        <p><button id="timer-reset">Timer Reset (F9)</button></p>
+        <p><button id="timer-start">Timer Start</button></p>
+        <p><button id="timer-pause">Timer Pause</button></p>
+        <p><button id="timer-reset">Timer Reset</button></p>
+        <p>Timer Start Keybind: <input type="text" id="timer-start-key" value="f1"/></p>
+        <p>Timer Pause Keybind: <input type="text" id="timer-pause-key" value="f5"/></p>
+        <p>Timer Reset Keybind: <input type="text" id="timer-reset-key" value="f9"/></p>
+        <p><button id="update-keybinds">Update Keybinds</button></p>
         <p>Twitch Client ID: <input type="text" id="twitch-client-id"/></p>
         <p>Twitch Access Token: <input type="text" id="twitch-access-token"/></p>
         <p><button id="twitch-connect">Twitch Connect</button></p>

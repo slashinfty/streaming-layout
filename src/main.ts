@@ -18,10 +18,6 @@ let timer = new Stopwatch({
 });
 const store = new Store('.settings.dat');
 
-Mousetrap.bind('f1', () => timer.start());
-Mousetrap.bind('f5', () => timer.pause());
-Mousetrap.bind('f9', () => timer.reset());
-
 const widths = {
     "10-9": 733,
     "8-7": 754,
@@ -41,6 +37,7 @@ document.getElementById('obs-ws-connect').addEventListener('click', obsConnect);
 document.getElementById('timer-start').addEventListener('click', () => timer.start());
 document.getElementById('timer-pause').addEventListener('click', () => timer.pause());
 document.getElementById('timer-reset').addEventListener('click', () => timer.reset());
+document.getElementById('update-keybinds').addEventListener('click', bindKeys);
 document.getElementById('twitch-connect').addEventListener('click', twitchConnect);
 
 async function aspectRatio() {
@@ -129,6 +126,19 @@ async function twitchConnect() {
     }
 }
 
+async function bindKeys() {
+    Mousetrap.reset();
+    const startKey = (<HTMLInputElement>document.getElementById('timer-start-key')).value;
+    const pauseKey = (<HTMLInputElement>document.getElementById('timer-pause-key')).value;
+    const resetKey = (<HTMLInputElement>document.getElementById('timer-reset-key')).value;
+    Mousetrap.bind(startKey, () => timer.start());
+    Mousetrap.bind(pauseKey, () => timer.pause());
+    Mousetrap.bind(resetKey, () => timer.reset());
+    await store.set('start-key', startKey);
+    await store.set('pause-key', pauseKey);
+    await store.set('reset-key', resetKey);
+}
+
 (async function() {
     aspectRatio();
     const pb: string = await store.get('pb');
@@ -147,4 +157,17 @@ async function twitchConnect() {
     if (accessToken !== null) {
         (<HTMLInputElement>document.getElementById('twitch-access-token')).value = accessToken;
     }
+    const startKey: string = await store.get('start-key');
+    if (startKey !== null) {
+        (<HTMLInputElement>document.getElementById('timer-start-key')).value = startKey;
+    }
+    const pauseKey: string = await store.get('pause-key');
+    if (pauseKey !== null) {
+        (<HTMLInputElement>document.getElementById('timer-pause-key')).value = pauseKey;
+    }
+    const resetKey: string = await store.get('reset-key');
+    if (resetKey !== null) {
+        (<HTMLInputElement>document.getElementById('timer-reset-key')).value = resetKey;
+    }
+    bindKeys();
 })();
