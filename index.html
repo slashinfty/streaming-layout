@@ -22,6 +22,7 @@
       </div>
       <div class="window-body" id="timer-body">
         <p id="timer">0:00.0</p>
+        <table id="splits"></table>
       </div>
       <div class="status-bar">
         <p class="status-bar-field">Personal Best: <span id="pb">0:00.0</span></p>
@@ -61,16 +62,15 @@
           <option value="3-2">3:2</option>
           <option value="16-9">16:9</option>
         </select></p>
+        <p><button id="chat-toggle">Toggle Chat</button>&nbsp;<button id="clear-chat">Clear Chat</button></p>
         <p><button id="timer-toggle">Toggle Timer</button></p>
-        <p><button id="chat-toggle">Toggle Chat</button></p>
-        <p><button id="clear-chat">Clear Chat</button></p>
-        <p>PB: <input type="text" id="pb-input" value="0:00.0"/></p>
-        <p><button id="set-pb">Set PB</button></p>
-        <p><button id="timer-start">Timer Start</button></p>
-        <p><button id="timer-pause">Timer Pause</button></p>
-        <p><button id="timer-reset">Timer Reset</button></p>
-        <p>Timer Start Keybind: <input type="text" id="timer-start-key" value="f1"/></p>
-        <p>Timer Pause Keybind: <input type="text" id="timer-pause-key" value="f5"/></p>
+        <!--<p>PB: <input type="text" id="pb-input" value="0:00.0"/></p>
+        <p><button id="set-pb">Set PB</button></p>-->
+        <p>Import Splits <input id="splits-import" type="file" accept="application/JSON" /></p>
+        <p><button id="timer-start">Timer Start/Split</button>&nbsp;<button id="timer-reset">Timer Reset</button></p>
+        <p><button id="timer-save-splits">Save Splits</button>&nbsp;<button id="timer-save-bests">Save Bests</button></p>
+        <p><button id="splits-export">Export Splits</button></p>
+        <p>Timer Start/Split Keybind: <input type="text" id="timer-start-key" value="f1"/></p>
         <p>Timer Reset Keybind: <input type="text" id="timer-reset-key" value="f9"/></p>
         <p><button id="update-keybinds">Update Keybinds</button></p>
         <p>Twitch Client ID: <input type="text" id="twitch-client-id"/></p>

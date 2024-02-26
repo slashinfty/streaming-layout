@@ -1,3 +1,6 @@
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, extname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { StaticAuthProvider } from '@twurple/auth';
 import { ChatClient } from '@twurple/chat';
 import OBSWebSocket from 'obs-websocket-js';
@@ -16,6 +19,7 @@ let timer = new Stopwatch({
         (<HTMLElement>document.getElementById('timer')).innerText = `${hrFormatted}${minFormatted}${secFormatted}${msFormatted}`;
     }
 });
+let splits = {};
 const store = new Store('.settings.dat');
 
 const widths = {
@@ -32,10 +36,11 @@ document.getElementById('timer-close').addEventListener('click', timerToggle);
 document.getElementById('chat-toggle').addEventListener('click', chatToggle);
 document.getElementById('chat-close').addEventListener('click', chatToggle);
 document.getElementById('clear-chat').addEventListener('click', () => (<HTMLInputElement>document.getElementById('chat')).value = '');
-document.getElementById('set-pb').addEventListener('click', setPB);
+//document.getElementById('set-pb').addEventListener('click', setPB);
+document.getElementById('splits-import').addEventListener('change', importSplits);
 document.getElementById('obs-ws-connect').addEventListener('click', obsConnect);
 document.getElementById('timer-start').addEventListener('click', () => timer.start());
-document.getElementById('timer-pause').addEventListener('click', () => timer.pause());
+//document.getElementById('timer-pause').addEventListener('click', () => timer.pause());
 document.getElementById('timer-reset').addEventListener('click', () => timer.reset());
 document.getElementById('update-keybinds').addEventListener('click', bindKeys);
 document.getElementById('twitch-connect').addEventListener('click', twitchConnect);
@@ -75,11 +80,22 @@ function chatToggle() {
     }
 }
 
+/*
 async function setPB() {
     const pb = (<HTMLInputElement>document.getElementById('pb-input')).value;
     document.getElementById('pb').innerText = pb;
     await store.set('pb', pb);
     await store.save();
+}
+*/
+
+function importSplits() {
+    const file = <HTMLInputElement>document.getElementById('splits-import').files[0];
+    //readFileSync?
+}
+
+function exportSplits() {
+
 }
 
 async function obsConnect() {
@@ -140,6 +156,8 @@ async function bindKeys() {
 }
 
 (async function() {
+    const splitsDir = resolve(dirname(fileURLToPath(import.meta.url)), 'splits');
+    if (!existsSync(splitsDir)) mkdirSync(splitsDir);
     aspectRatio();
     const pb: string = await store.get('pb');
     if (pb !== null) {
